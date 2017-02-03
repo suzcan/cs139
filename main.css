@@ -1,0 +1,167 @@
+
+html{
+    font-family: "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #eff5ff;
+    
+}
+
+
+#main_wrap {
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    width: 960px;
+}
+
+#main_title {
+
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    width: 950px;
+}
+
+div.main_section {
+    border: 10px solid #eff5ff;
+    background-color: #1ab2ff;
+    padding: 25px;
+    color: white;
+    text-align: center;    
+    width: 250px;
+    height: 250px;
+    float: left;
+}
+
+
+#logo1 {
+    padding:0px;
+    
+}
+
+.list td{
+  color:  
+  
+}
+.nav {
+    background-color: ;
+    color: white;
+    padding: 10px;
+    font-size: 25px;
+    width: 200px;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+    float: left;
+    position: fixed;
+    
+}
+
+.nav ul {
+  list-style-type: none;
+  margin: 0;
+  margin-top: 0px
+  margin-bottom: 10px;
+  padding: 20px;
+  width: 150px;
+  
+}
+
+.nav li {
+  padding: 10px;
+  color: #1ab2ff;
+}
+
+.nav li a {
+    text-decoration: none;
+    color: #1ab2ff;
+    padding: 10px 16px;
+}
+
+.nav li a:hover {
+  -webkit-animation-name: colors;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-fill-mode: forwards;
+  animation-name: colors;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  
+}
+
+@-webkit-keyframes colors {
+  from {background-color: white;
+	color: #1ab2ff;
+  }
+  to {background-color: #1ab2ff;
+    color: white;
+  }
+}
+
+@keyframes colors {
+  from {background-color: white;
+      color: #1ab2ff;
+  }
+  to {background-color: #1ab2ff;
+    color: white;
+  }
+}
+
+
+#content_wrap {
+    padding: 50px;
+    margin-top: 40px;
+    margin-left: 200px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    float: center;
+    text-align: center;
+    position: absolute;
+    height: 80%;
+
+}
+
+
+table {
+  float: left;
+  position: relative;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  background-color: #1ab2ff; 
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+table a {
+  color: white;
+}
+
+
+
+table tr th {
+  text-align: center;
+  padding: 5px;
+}
+
+table tr td {
+    padding: 10px;
+    
+}
+
+table tr td a {
+  text-decoration: none;
+  
+}
+
+h1 {
+    color: #1ab2ff;
+    font-weight: bold;
+    padding: 25px;
+    text-align: center;
+}
+/* EDIT HTML */
+#center {
+  text-align:center;
+}
