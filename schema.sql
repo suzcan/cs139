@@ -1,8 +1,8 @@
 DROP TABLE users;
 CREATE TABLE users(userID integer, password varchar(20), username varchar(20), email text, notifPref integer);
 DROP TABLE listCats;
-CREATE TABLE listCats(name varchar(25), lists text, dNotd integer, sharedW text);
+CREATE TABLE listCats(catID integer, name varchar(25), belongTo varchar(20));
 DROP TABLE lists;
-CREATE TABLE lists(name varchar(25), listItems text, dNotd integer, sharedW text);
+CREATE TABLE lists(listID integer, name varchar(25), catID integer, dNotd integer, sharedW text);
 DROP TABLE listItems;
-CREATE TABLE listItems(numeration integer, content text, dNotd integer);
+CREATE TABLE listItems(numeration integer, content text, dNotd integer, listID integer);
