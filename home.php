@@ -15,7 +15,7 @@
 	<h1>Welcome, <?php echo $_POST["Username"]; ?>!</h1>
 	<h2>My lists<h2>
 	    
-<!--  Makes sure a user sees their categories   -->
+// Lets the user see their categories
     <?php
      $db = new SQLite3('todo.db');
       
@@ -35,6 +35,7 @@
 	      <tbody>";
       $lists = "SELECT * FROM lists WHERE (userID =" . $curUser . ") AND (catID =" . $row["catID"] . ")";
       $listResults = $db->query($lists);
+
       if($listResults->num_rows === 0) {
 	 $GLOBALS['lastlistID'] = 0;
       } else {
@@ -61,10 +62,25 @@
 	    <input type='hidden' name='curCatID' id='curCatID' value='". $row['catID'] . "'>
 	    <input type='hidden' name='curListID' id='curListID' value='". $lastlistID . "'>
 	    </form></td>
+
+      while($rrow = $listResults->fetchArray()) {
+	// prints out lists, had to add current user to avoid overlap with other users lists and catID to avoid overlap with other
+	// categories
+	echo "<tr>
+		  <td>
+		    <a href='list1.php?id=" .$curUser . $row['catID'] . $rrow["listID"]. "'>" .$rrow["name"] . "</a>
+		  <td>
+		  <td>
+		    <a href='share.php?id=" . $curUser . $row['catID'] .  $rrow["listID"] . "'> Share </a>
+		  </td>
+		</tr>";
+      }
+
 	    </tbody>
 	    </table>";
 	
      }
+
      
      
      $db->close();
@@ -149,6 +165,13 @@
 	}
       }
     </script>
+
+     echo "<p>Add category</p>";
+     echo "<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add Category</button>";
+     $db->close();
+    ?>
+       
+
 	
     </div>
  </body>
