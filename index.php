@@ -9,6 +9,7 @@
 
 <body>
 
+
     <div id='main_wrap'>
     
     <div id='main_title'>
@@ -25,9 +26,9 @@
     
     <div class='main_section'>
     <h2 class='section'>Login</h2>
-    <form action='home.php' method="post">
-	<p>Username <input type='text' name="Username">
-	<br>Password <input type='password' name="Password">
+    <form action='session.php' method="post">
+	<p>Email<br> <input type='text' name="email" id="email">
+	<br>Password <input type='password' name="Password" id="Password">
 	<br><br><input type='submit' value="Login">
 	<br><br><a href='foruser.php'>Forgot Username/password?</a>
 	</p>
