@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html>
-
+<?php
+  session_start();
+  $flag = loggedIn();
+  function loggedIn() {
+    if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  if (!($flag)) {
+    header("Location: index.php");
+  } else {
+  } 
+?>
     <head>
 	<meta charset="UTF-8">
 	<title>Settings</title>

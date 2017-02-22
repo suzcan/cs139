@@ -1,6 +1,45 @@
+<?php 
+  session_start();
+  $flag = loggedIn();
+  $flag2 = accessResources($_GET["id"]);
+  
+  function loggedIn() {
+    if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function accessResources($resources_user_id) {
+    $inId = htmlspecialchars($resources_user_id, ENT_QUOTES, 'utf-8');
+    $aUser = $_SESSION["userID"];
+    
+    $cleanID = substr($inId, 0, -3);
+    
+    if( $cleanID == $aUser ) {
+    } else {
+      header("Location: index.php");
+    }    
+    
+  }
+?>
 <!DOCTYPE html>
 <html>
-
+<?php
+  $flag = loggedIn();
+  function loggedIn() {
+    if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  if (!($flag)) {
+    header("Location: index.php");
+  } else {
+  } 
+?>
     <head>
 	<meta charset="UTF-8">
 	<title>Share</title>

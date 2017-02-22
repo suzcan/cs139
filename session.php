@@ -12,19 +12,22 @@
     function test_input($data) {
 	$data = trim($data);
 	$data = stripslashes($data);
-	$data = htmlspecialchars($data);
+	$data = htmlspecialchars($data, ENT_QUOTES, 'utf-8');
 	return $data;
     }
-      
-    $query= "SELECT password FROM users WHERE(email='".$email."')";
-    $pass=$db->querySingle($query);
-    $query= "SELECT salt FROM users WHERE(email='".$email."')";
-    $s= $db->querySingle($query);
-    $query= "SELECT userID FROM users WHERE(email='".$email."')";
-    $uid= $db->querySingle($query);
+    // gets encrypted password, salt and userID
+    $query = $db->prepare("SELECT * FROM users WHERE(email=:email)");
+    $query->bindParam(':email', $email, SQLITE3_TEXT);
+    $queryIs = $query->execute();
+    $fetched = $queryIs->fetchArray();
+    $pass= $fetched['password'];
+    $s = $fetched['salt'];
+    $uid = $fetched['userID'];
+    
     $encryptedpassword=sha1($s."--".$password);
     if($pass==$encryptedpassword){
-	$_SESSION ['login']=$uid;			//initialising session
+	$_SESSION ["userID"]=$uid;			//initialising session
+	$_SESSION["login"] = true;
  	header("Location: home.php");			//redirecting to home page
     }else{
 	$error= "Username or password is invalid";

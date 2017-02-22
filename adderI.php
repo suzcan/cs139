@@ -1,25 +1,30 @@
 <?php
-
+    session_start();
     $db = new SQLite3('todo.db');
  
-    $curUser = 1;
+    $stmt = $db->prepare("INSERT INTO listItems VALUES(:numeration, :content,'0', :listID, :catID, :userID)");
+    $stmt->bindParam(':numeration', $curNumeration, SQLITE3_INTEGER);
+    $stmt->bindParam(':content', $newItem, SQLITE3_TEXT);
+    $stmt->bindParam(':listID', $curListID, SQLITE3_INTEGER);
+    $stmt->bindParam(':catID', $curCatID, SQLITE3_INTEGER);
+    $stmt->bindParam(':userID', $curUser, SQLITE3_TEXT);
+    
+    $curUser = $_SESSION["userID"];
 
     $curCatID = $_POST['curCatID'];
  
-     $newItem=$_POST['newItem'];
+    $newItem=$_POST['newItem'];
 
-     $curListID=($_POST['curListID']);
+    $curListID=($_POST['curListID']);
 
-     $curNumeration=($_POST['curNumeration'] + 1);
+    $curNumeration=($_POST['curNumeration'] + 1);
    
-    $toInsert = "INSERT INTO listItems VALUES('". $curNumeration ."', '". $newItem ."','0', '". $curListID ."', '". $curCatID ."', '". $curUser ."')";
-     
-     $db->exec($toInsert);
+    $stmt->execute();
  
     $_POST = array();
 
-     $db->close();
-     
-     header("Location: list1.php?id=" .$curUser . $curCatID . $curListID ."");
+    $db->close();
+
+    header("Location: list1.php?id=" .$curUser . $curCatID . $curListID ."");
 
 ?>

@@ -1,3 +1,20 @@
+<?php session_start(); ?>
+
+<?php
+  $flag = loggedIn();
+  function loggedIn() {
+    if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  if (!($flag)) {
+    header("Location: index.php");
+  } else {
+  } 
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -12,19 +29,29 @@
     <?php include 'nav.php' ?>
     
     <div id='content_wrap'>
-	<h1>Welcome, <?php echo $_POST["Username"]; ?>!</h1>
-	<h2>My lists<h2>
+	
 	    
-// Lets the user see their categories
+<!--  Makes sure a user sees their categories   -->
     <?php
      $db = new SQLite3('todo.db');
       
-     $curUser = 1;
+     $curUser = $_SESSION["userID"];
      
-     $cats = "SELECT * FROM listCats WHERE userID =" .$curUser;
-   
-     $catResults = $db->query($cats);
+//      Select user's username
+  
+     $user = $db->prepare("SELECT username FROM users WHERE(userID = :userID)");
+     $user->bindParam(':userID', $curUser, SQLITE3_TEXT);
+     $userIs = $user->execute();
+     $fetched = $userIs->fetchArray();
+     echo "<h1>Welcome, ".$fetched['username']."</h1>
+	<h2>My lists<h2>";
     
+
+     
+     $cats = $db->prepare("SELECT * FROM listCats WHERE(userID = :userID)");
+     $cats->bindParam(':userID', $curUser, SQLITE3_TEXT);
+     $catResults = $cats->execute();
+        
      while($row = $catResults->fetchArray()) {
       echo "<table>
 	      <thead>
@@ -33,9 +60,9 @@
 		 </tr>
 	      </thead>
 	      <tbody>";
-      $lists = "SELECT * FROM lists WHERE (userID =" . $curUser . ") AND (catID =" . $row["catID"] . ")";
+      // this select statement does not take user input hence it does not requiere modifying
+      $lists = "SELECT * FROM lists WHERE (userID ='" . $curUser . "') AND (catID ='" . $row["catID"] . "')";
       $listResults = $db->query($lists);
-
       if($listResults->num_rows === 0) {
 	 $GLOBALS['lastlistID'] = 0;
       } else {
@@ -62,26 +89,10 @@
 	    <input type='hidden' name='curCatID' id='curCatID' value='". $row['catID'] . "'>
 	    <input type='hidden' name='curListID' id='curListID' value='". $lastlistID . "'>
 	    </form></td>
-
-      while($rrow = $listResults->fetchArray()) {
-	// prints out lists, had to add current user to avoid overlap with other users lists and catID to avoid overlap with other
-	// categories
-	echo "<tr>
-		  <td>
-		    <a href='list1.php?id=" .$curUser . $row['catID'] . $rrow["listID"]. "'>" .$rrow["name"] . "</a>
-		  <td>
-		  <td>
-		    <a href='share.php?id=" . $curUser . $row['catID'] .  $rrow["listID"] . "'> Share </a>
-		  </td>
-		</tr>";
-      }
-
 	    </tbody>
 	    </table>";
 	
      }
-
-     
      
      $db->close();
     ?>
@@ -114,9 +125,9 @@
     <?php
      $db = new SQLite3('todo.db');
       
-     $curUser = 1;
+     $curUser = $_SESSION["userID"];
      
-     $cats = "SELECT * FROM listCats WHERE userID =" .$curUser;
+     $cats = "SELECT * FROM listCats WHERE(userID = '" .$curUser. "')";;
      
      $catResults = $db->query($cats);
      while($row = $catResults->fetchArray()) {
@@ -127,8 +138,9 @@
      $newCatname = $_GET['newCatname'];
      $namelength = strlen($newCatname);
      if( ($newCatname != "") AND ($namelength <= 25) ) {
-	$insert = "INSERT INTO listCats VALUES('" . $newCatID . "', '" . $newCatname . "', '" . $curUser . "')"; 
-	$db->exec($insert);
+	$insert = $db->prepare("INSERT INTO listCats VALUES('" . $newCatID . "', :name, '" . $curUser . "')");
+	$insert->bindParam(':name', $newCatname, SQLITE3_TEXT);
+	$insertion = $insert->execute();
      }
      
      $_GET = array();
@@ -165,13 +177,6 @@
 	}
       }
     </script>
-
-     echo "<p>Add category</p>";
-     echo "<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add Category</button>";
-     $db->close();
-    ?>
-       
-
 	
     </div>
  </body>

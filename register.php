@@ -7,14 +7,12 @@
   <link rel="stylesheet" href="css/main.css" type="text/css" charset="utf-8">
     </head>
     
-    <?php include 'registrationform.php'; ?>
-    
 <body>
 
     
     <div id='content_wrap'>
 	<h1>Register</h1>
-	<form action='index.php' method= "post">
+	<form action='registrationform.php' method= "post">
 	    <br>Email: <input type='text' name="Email">
 	    <br>
 	    <br>Username: <input type='text' name="Username" id="Username">

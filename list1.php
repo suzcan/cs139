@@ -1,3 +1,37 @@
+<?php session_start(); ?>
+<?php
+
+  $flag = loggedIn();
+  $flag2 = accessResources($_GET["id"]);
+  
+  function loggedIn() {
+    if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  if (!($flag)) {
+    header("Location: index.php");
+  } 
+
+  function accessResources($resources_user_id) {
+    $inId = htmlspecialchars($resources_user_id, ENT_QUOTES, 'utf-8');
+    $aUser = $_SESSION["userID"];
+    
+    $cleanID = substr($inId, 0, -2);
+    
+    if( $cleanID == $aUser ) {
+    } else {
+      header("Location: home.php");
+    }    
+    
+  }
+  
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -14,19 +48,21 @@
     
     
     <?php
+      session_start();
       $db = new SQLite3('todo.db');
       
-      $curUser = 1;
+      $curUser = $_SESSION["userID"];
+      
+      $length = strlen($curUser);
       
       //divide code into parts (userID, catID and listID)
-      $catAlist = str_split(htmlspecialchars($_GET["id"]));
-      $user = $catAlist[0];
-      $category = $catAlist[1];
-      $list = $catAlist[2];
+      $catAlist = str_split(htmlspecialchars($_GET["id"], ENT_QUOTES, 'utf-8'));
+      $category = $catAlist[$length];
+      $list = $catAlist[$length + 1];
       
-      // queries 
-      $name = "SELECT * FROM lists WHERE (userID =" .$curUser .") AND (catID =" .$category.") AND (listID = " .$list.")";
-      $items = "SELECT * FROM listItems WHERE (userID =" .$curUser .") AND (catID =" .$category.") AND (listID = " .$list.")";
+      // dont take user inputs but to prevent malicious input into url  
+      $name = "SELECT * FROM lists WHERE (userID ='" .$curUser ."') AND (catID ='" .$category."') AND (listID = '" .$list."')";
+      $items = "SELECT * FROM listItems WHERE (userID ='" .$curUser ."') AND (catID ='" .$category."') AND (listID = '" .$list."')";
       $itemResults = $db->query($items);
       $nameResult = $db->query($name);
       
