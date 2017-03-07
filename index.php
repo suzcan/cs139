@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>To Do Lister</title>
 	<link rel="stylesheet" href="css/main.css" type="text/css" charset="utf-8">
+	<script src='js/jquery-3.1.1.min.js'></script>
     </head>
 
 <body>
@@ -28,16 +29,16 @@
     <h2 class='section'>Login</h2>
     <form action='session.php' method="post">
 	<p>Email<br> <input type='text' name="email" id="email">
-	<br>Password <input type='password' name="Password" id="Password">
+	<br>Password <br><input type='password' name="Password" id="Password">
 	<br><br><input type='submit' value="Login">
 	<br><br><a href='foruser.php'>Forgot Username/password?</a>
-	</p>
+	
 	
     </form>
     <br>
     <p>Not a member? <a href="register.php">Register</a> now!</p>
     </div>
-    
+    </p>
     <div class='main_section'>
     <h2 class='section'>Who are we?</h2>
     <p>We are two CSE students.</p>

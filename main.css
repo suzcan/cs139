@@ -2,7 +2,11 @@
 html{
     font-family: "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: #eff5ff;
-    
+
+}
+
+.error {
+  color: red;
 }
 
 
@@ -28,7 +32,7 @@ div.main_section {
     background-color: #1ab2ff;
     padding: 25px;
     color: white;
-    text-align: center;    
+    text-align: center;
     width: 250px;
     height: 250px;
     float: left;
@@ -37,12 +41,12 @@ div.main_section {
 
 #logo1 {
     padding:0px;
-    
+
 }
 
 .list td{
-  color:  
-  
+  color:
+
 }
 .nav {
     color: white;
@@ -55,7 +59,7 @@ div.main_section {
     list-style-type: none;
     float: left;
     position: fixed;
-    
+
 }
 
 .nav ul {
@@ -65,7 +69,7 @@ div.main_section {
   margin-bottom: 10px;
   padding: 20px;
   width: 150px;
-  
+
 }
 
 .nav li {
@@ -86,7 +90,7 @@ div.main_section {
   animation-name: colors;
   animation-duration: 2s;
   animation-fill-mode: forwards;
-  
+
 }
 
 @-webkit-keyframes colors {
@@ -128,7 +132,7 @@ table {
   padding: 10px;
   text-align: center;
   color: white;
-  background-color: #1ab2ff; 
+  background-color: #1ab2ff;
   text-decoration: none;
   margin-right: 10px;
 }
@@ -146,12 +150,12 @@ table tr th {
 
 table tr td {
     padding: 10px;
-    
+
 }
 
 table tr td a {
   text-decoration: none;
-  
+
 }
 
 h1 {
@@ -169,7 +173,7 @@ h1 {
 /* MODIFYING POP UP */
 .modal {
   display: none; /* pop up is hidden by default */
-  position: fixed; 
+  position: fixed;
   z-index: 1000;
   left: 0;
   top: 0;
@@ -245,7 +249,7 @@ h1 {
 
 .myBtnTwo {
   padding: 12px 20px;
-  
+
 }
 
 .button_container {
