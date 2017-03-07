@@ -1,0 +1,59 @@
+<script>
+  $("#target").submit(function() {
+        $.ajax({
+          url: 'addDone.php',
+          type: 'POST',
+          data: { curCatID = $("#curCatID"), curListID = $("#curListID"), curNumeration = $("#curNumeration"), newItem = ("#newItem") }
+        });
+
+  });
+
+</script>
+$.ajax({
+  url: 'addDone.php',
+  type: 'post',
+  data: { ID: $(this).attr("id"), state:"1"}
+});
+} else {
+$.ajax({
+  url: 'addDone.php',
+  type: 'post',
+  data: { ID: $(this).attr("id"), state:"0"}
+});
+
+
+
+$flag = loggedIn();
+$flag2 = accessResources($_GET["id"]);
+
+function loggedIn() {
+  if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+if (!($flag)) {
+  header("Location: index.php");
+}
+
+function accessResources($resources_user_id) {
+  $inId = htmlspecialchars($resources_user_id, ENT_QUOTES, 'utf-8');
+  $aUser = $_SESSION["userID"];
+
+  $cleanID = substr($inId, 0, -2);
+
+  if( $cleanID == $aUser ) {
+  } else {
+    header("Location: home.php");
+  }
+
+}
+
+
+$.ajax(
+  {url: 'addDone.php',
+  type: 'POST',
+  data: { state: '1'}
+}),
